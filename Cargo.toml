@@ -1,0 +1,30 @@
+[package]
+name = "a76xx"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+atat = { git ="https://github.com/FactbirdHQ/atat.git", rev = "edceb1a", features = ["heapless"] }
+defmt = { version = "1.0.1", optional = true }
+embassy-futures = { version = "0.1.2" }
+embassy-sync = { version = "0.8.0" }
+embassy-time = { version = "0.5.0" }
+embedded-hal = "1.0.0"
+embedded-io-async = "0.7.0"
+heapless = "0.9.2"
+static_cell = "2.1.1"
+
+[features]
+defmt = [
+    "dep:defmt",
+    "atat/defmt",
+    "embassy-futures/defmt",
+    "embassy-sync/defmt",
+    "embassy-time/defmt",
+    "embedded-hal/defmt-03",
+    "embedded-io-async/defmt",
+    "heapless/defmt",
+]
+
+[dev-dependencies]
+critical-section = { version = "1.2.0", features = ["std"] }
