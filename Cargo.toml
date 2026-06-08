@@ -1,7 +1,18 @@
 [package]
 name = "a76xx"
+authors = ["Jaroslaw Konik <konikjar@gmail.com>"]
 version = "0.1.0"
 edition = "2024"
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+categories = [
+    "hardware-support",
+    "no-std",
+]
+description = "Pure Rust `embedded-io-async` and `embedded-hal` based driver for SIMCom `a76xx` family of modems."
+repository = "https://github.com/jarkonik/a76xx"
+keywords = ["a76xx", "modem", "a7670", "driver", "simcom"]
+
 
 [dependencies]
 atat = { git ="https://github.com/FactbirdHQ/atat.git", rev = "edceb1a", features = ["heapless"] }
