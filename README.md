@@ -121,3 +121,7 @@ async fn ppp_task(
 ### License
 
 a76xx is licensed under either of the following, at your option: Apache License, Version 2.0, (LICENSE-APACHE or http://www.apache.org/licenses/LICENSE-2.0) or MIT license (LICENSE-MIT or http://opensource.org/licenses/MIT)
+
+### Special thanks
+
+- to Karol Więcław for purchasing a A7670E-based board which has been used for initial development
