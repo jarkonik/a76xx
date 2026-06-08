@@ -27,7 +27,7 @@ static MODEM_RESOURCES: StaticCell<
 let modem_resources = MODEM_RESOURCES.init_with(a76xx::ModemResources::new);
 
 // Main modem object. PowerPins structure configuration will depend on your wiring.
-// Pin feelds need to implement relevant `embedded-hal` digital output pin traits.
+// Pin fields need to implement relevant `embedded-hal` digital output pin traits.
 let (mut modem, rx_pump, tx_pump) = a76xx::Modem::new(
     modem_resources,
     a76xx::PowerPins {
