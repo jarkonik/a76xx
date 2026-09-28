@@ -19,6 +19,7 @@ use embassy_sync::pubsub::{Subscriber, WaitResult};
 use embassy_time::{Duration, Timer, with_timeout};
 use embedded_hal::digital::OutputPin;
 
+mod cpin;
 mod transport;
 
 pub use transport::{ModemResources, PppIo, RxPump, TxPump};
@@ -587,6 +588,31 @@ impl<'a, P: ModemPower + Send, const DATA_TX_PIPE_SIZE: usize, const DATA_RX_PIP
         Ok(())
     }
 
+    async fn prepare_ppp_without_pin(&mut self,  apn: &str) -> Result<(), Error> {
+        self.wait_for_connection().await;
+        self.disable_echo().await?;
+        self.wait_for_registration().await;
+        self.wait_for_service().await?;
+        self.define_pdp_context(1, "IP", apn).await?;
+
+        Ok(())
+    }
+
+    pub async fn connect_ppp_without_pin<'b>(
+        &mut self,
+        apn: &str,
+        number: &str,
+    ) -> Result<PppIo<'b, DATA_TX_PIPE_SIZE, DATA_RX_PIPE_SIZE>, Error>
+    where
+        'a: 'b,
+    {
+        let ppp_io = self.ppp_io.take().ok_or(Error::PppAlreadyTaken)?;
+        self.prepare_ppp_without_pin( apn).await?;
+        self.dial(number).await?;
+        self.mode.enter_data_mode();
+
+        Ok(ppp_io)
+    }
     pub async fn connect_ppp<'b>(
         &mut self,
         pin: &str,
